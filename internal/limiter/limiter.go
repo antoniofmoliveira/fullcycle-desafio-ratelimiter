@@ -31,6 +31,7 @@ func NewTokenBucket(qtTokens int, timeFrame time.Duration) *TokenBucket {
 	go func() {
 		for {
 			time.Sleep(timeFrame)
+			log.Printf("Tokens remaining: %v", tb.qtTokensRemain)
 			tb.ResetBucket()
 			log.Printf("Reset bucket at %v", time.Now())
 		}

@@ -1,7 +1,7 @@
 package limiter
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
 	"time"
 )
@@ -31,9 +31,8 @@ func NewTokenBucket(qtTokens int, timeFrame time.Duration) *TokenBucket {
 	go func() {
 		for {
 			time.Sleep(timeFrame)
-			log.Printf("Tokens remaining: %v", tb.qtTokensRemain)
+			slog.Info("Reset bucket", "Tokens remaining", tb.qtTokensRemain, "Reset bucket at", time.Now())
 			tb.ResetBucket()
-			log.Printf("Reset bucket at %v", time.Now())
 		}
 	}()
 

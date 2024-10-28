@@ -22,7 +22,6 @@ Implementação de servidor de teste
 
 - aceita flags para simular latência no servidor
 
-
 Sugestão para utilizar juntamente com o stress tester em várias configurações para obter a melhor configuração:
 
 exemplo:

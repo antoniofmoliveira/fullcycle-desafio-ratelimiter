@@ -19,9 +19,7 @@ func main() {
 
 	slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, nil)))
 
-	c := config.NewConfig()
-
-	server := server.NewServer(*c)
+	server := server.NewServer(*config.NewConfig())
 	go server.Start()
 
 	termChan := make(chan os.Signal, 1)

@@ -8,25 +8,25 @@ import (
 	"net/http"
 )
 
-var AvailableHandles = []Handle{GetHandleHello, PostHandleHello}
+var availableHandles = []handle{getHandleHello, postHandleHello}
 
-type Handle struct {
-	Path    string
-	Handler http.Handler
+type handle struct {
+	path    string
+	handler http.Handler
 }
 
 // GET /hello
-var GetHandleHello = Handle{
-	Path: "GET /hello",
-	Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+var getHandleHello = handle{
+	path: "GET /hello",
+	handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))
 	}),
 }
 
 // POST /hello
-var PostHandleHello = Handle{
-	Path: "POST /hello",
-	Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+var postHandleHello = handle{
+	path: "POST /hello",
+	handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			slog.Error("Can't read body", "error", err)
@@ -42,7 +42,6 @@ var PostHandleHello = Handle{
 			http.Error(w, "Can't unmarshal json", http.StatusInternalServerError)
 			return
 		}
-		// slog.Info("Hello", "message", message.Message)
 		fmt.Fprintf(w, "Hello, %s!", message.Message)
 	}),
 }
